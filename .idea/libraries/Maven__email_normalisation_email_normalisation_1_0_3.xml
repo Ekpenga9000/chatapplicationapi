@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: email-normalisation:email-normalisation:1.0.3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/email-normalisation/email-normalisation/1.0.3/email-normalisation-1.0.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/email-normalisation/email-normalisation/1.0.3/email-normalisation-1.0.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/email-normalisation/email-normalisation/1.0.3/email-normalisation-1.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
