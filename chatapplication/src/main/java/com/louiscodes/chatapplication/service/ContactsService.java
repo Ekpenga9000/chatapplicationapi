@@ -74,6 +74,41 @@ public class ContactsService {
                 .collect(Collectors.toList());
     }
 
+    public AccountHolderDTO getContactById(Long accountHolderId, Long contactId) throws BadRequestException{
+        Optional<AccountHolderEntity> accountHolderOptional = accountHolderRepository.findById(accountHolderId);
+
+        if(!accountHolderOptional.isPresent()){
+            throw new ResourceNotFoundException("This account does not Exist");
+        }
+
+        AccountHolderEntity accountHolder = accountHolderOptional.get();
+
+        Set<ContactsEntity> allContacts = accountHolder.getContacts();
+
+        boolean isPresent = false;
+
+        for(ContactsEntity contact : allContacts){
+            if(contact.getId().equals(contactId)){
+                isPresent = true;
+            }
+        }
+
+        if(!isPresent){
+            throw new BadRequestException("This contact does not exist");
+        }
+
+        Optional<AccountHolderEntity> contactOptional = accountHolderRepository.findById(contactId);
+
+        if(!contactOptional.isPresent()){
+            throw new ResourceNotFoundException("This contact does not exist");
+        }
+
+        AccountHolderEntity contact = contactOptional.get();
+
+        return modelMapper.map(contact, AccountHolderDTO.class);
+
+    }
+
     public AccountHolderDTO removeContact(Long accountHolderId, Long contactId){
         Optional<AccountHolderEntity> accountHolderEntityOptional = accountHolderRepository.findById(accountHolderId);
 
