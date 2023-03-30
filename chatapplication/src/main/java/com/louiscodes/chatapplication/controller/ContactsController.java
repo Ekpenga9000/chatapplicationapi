@@ -1,7 +1,6 @@
 package com.louiscodes.chatapplication.controller;
 
 import com.louiscodes.chatapplication.dto.AccountHolderDTO;
-import com.louiscodes.chatapplication.dto.ContactsDTO;
 import com.louiscodes.chatapplication.service.ContactsService;
 import com.louiscodes.chatapplication.shared.customexceptions.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -13,9 +12,13 @@ import java.util.List;
 @RequestMapping("/api/v1/contacts")
 public class ContactsController {
 
-    private ContactsService contactsService;
+    private final ContactsService contactsService;
 
-    @PostMapping("/{accountHolderId}/add-contact/{contactID}")
+    public ContactsController(ContactsService contactsService) {
+        this.contactsService = contactsService;
+    }
+
+    @PostMapping("/{accountHolderId}/add-contact/{contactId}")
     @ResponseStatus(HttpStatus.CREATED)
     public AccountHolderDTO addAccount(@PathVariable Long accountHolderId, @PathVariable Long contactId) throws BadRequestException {
         return contactsService.addContact(accountHolderId, contactId);

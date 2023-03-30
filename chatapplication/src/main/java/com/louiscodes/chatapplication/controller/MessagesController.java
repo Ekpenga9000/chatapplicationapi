@@ -27,10 +27,10 @@ public class MessagesController {
 
     @GetMapping("/{receiverId}/unread-messages")
     public List<MessagesDTO> getUnreadMessagesByReceiver(@PathVariable Long receiverId){
-        return messagesService.getUnreadMessagesByReciever(receiverId);
+        return messagesService.getUnreadMessagesByReceiver(receiverId);
     }
 
-    @GetMapping("/{messsageId}")
+    @GetMapping("/{messageId}")
     public MessagesDTO getMessageById(@PathVariable Long messageId){
         return messagesService.getMessagesById(messageId);
     }

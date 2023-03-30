@@ -22,11 +22,11 @@ public class MessagesEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id", nullable = false)
-    private AccountHolderEntity sender_id;
+    private AccountHolderEntity sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id", nullable = false)
-    private AccountHolderEntity receiver_id;
+    private AccountHolderEntity receiver;
 
     @Column(name="sent_at", nullable = false)
     private LocalDateTime sentAt;

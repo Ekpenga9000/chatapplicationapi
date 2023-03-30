@@ -8,10 +8,12 @@ import java.util.Optional;
 
 @Converter
 public class OptionalStringConverter implements AttributeConverter<Optional<String>, String> {
+
     @Override
     public String convertToDatabaseColumn(Optional<String> attribute) {
-        return attribute.orElse(null);
+        return attribute != null ? attribute.orElse(null) : null;
     }
+
 
     @Override
     public Optional<String> convertToEntityAttribute(String dbData) {

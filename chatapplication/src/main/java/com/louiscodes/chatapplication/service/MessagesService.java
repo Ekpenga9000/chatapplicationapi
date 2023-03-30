@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -26,26 +27,30 @@ public class MessagesService {
         this.modelMapper = modelMapper;
     }
 
-
+    @Transactional
     public MessagesDTO createMessage(MessagesDTO messagesDTO){
-        MessagesEntity newMessage = modelMapper.map(messagesDTO, MessagesEntity.class);
+        try{
+            MessagesEntity newMessage = modelMapper.map(messagesDTO, MessagesEntity.class);
 
-        newMessage.setSentAt(LocalDateTime.now());
-        MessagesEntity savedMessage = messagesRepository.save(newMessage);
+            newMessage.setSentAt(LocalDateTime.now());
+            MessagesEntity savedMessage = messagesRepository.save(newMessage);
 
-        return modelMapper.map(savedMessage, MessagesDTO.class);
+            return modelMapper.map(savedMessage, MessagesDTO.class);
+        }catch (Exception e){
+            throw new RuntimeException("Failed to create message: " + e.getMessage(), e);
+        }
     }
 
-    public List<MessagesDTO> getAllMessagesBySendAndReceiver(Long senderId, Long receiverId){
+    public List<MessagesDTO> getAllMessagesBySendAndReceiver(Long sender_id, Long receiver_id){
 
-        List<MessagesEntity> allMessages = messagesRepository.findBySenderIdAndReceiverIdOrderBySentAtAsc(senderId, receiverId);
+        List<MessagesEntity> allMessages = messagesRepository.findBySender_IdAndReceiver_IdOrderBySentAtAsc(sender_id, receiver_id);
 
         return allMessages.stream()
                 .map(message -> modelMapper.map(message, MessagesDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public List<MessagesDTO> getUnreadMessagesByReciever (Long receiverId){
+    public List<MessagesDTO> getUnreadMessagesByReceiver (Long receiverId){
         List<MessagesEntity> unreadMessages = messagesRepository.findByReceiverIdAndIsReadOrderBySentAtAsc(receiverId, false);
 
         return unreadMessages.stream()

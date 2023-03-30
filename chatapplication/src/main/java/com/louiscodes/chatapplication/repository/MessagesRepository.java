@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface MessagesRepository extends JpaRepository<MessagesEntity, Long> {
 
-    List<MessagesEntity> findBySenderIdAndReceiverIdOrderBySentAtAsc(Long senderId, Long receiverId);
+    List<MessagesEntity> findBySender_IdAndReceiver_IdOrderBySentAtAsc(Long sender_id, Long receiver_id);
 
-    List<MessagesEntity> findByReceiverIdAndIsReadOrderBySentAtAsc(Long recieverId, Boolean isRead);
+    List<MessagesEntity> findByReceiverIdAndIsReadOrderBySentAtAsc(Long receiver_id, Boolean isRead);
+
+    List<MessagesEntity> findBySenderId(Long senderId);
 
 }
