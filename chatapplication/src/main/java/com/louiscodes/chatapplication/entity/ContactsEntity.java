@@ -29,4 +29,6 @@ public class ContactsEntity {
             joinColumns = @JoinColumn(name = "contact_id"),
             inverseJoinColumns = @JoinColumn(name = "account_holder_id"))
     private Set<AccountHolderEntity> contacts = new HashSet<>();
+
+
 }
