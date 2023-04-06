@@ -44,12 +44,11 @@ public class AccountHolderEntity {
     private String username;
 
     @NotBlank(message = "Password cannot be blank")
-    @Length(min = 6, message = "Password must be at least 8 characters long")
+    @Length(min = 6, message = "Password must be at least 6 characters long")
     @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "nickname", nullable = true)
-//    @Convert(converter = OptionalStringConverter.class)
     private String nickname;
 
     @OneToMany(mappedBy = "accountHolder", cascade = CascadeType.ALL, orphanRemoval = true)
